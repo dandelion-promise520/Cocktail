@@ -2,10 +2,14 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useRef } from "react";
+import { useMediaQuery } from "react-responsive";
 
 const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   console.log(videoRef);
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const startValue = isMobile ? "top 50%" : "center 60%";
+  const endValue = isMobile ? "120% top" : "bottom top";
 
   useGSAP(() => {
     const heroSplit = new SplitText(".title", { type: "chars,words" });
@@ -40,8 +44,25 @@ const Hero = () => {
           scrub: true,
         },
       })
-      .to(".right-leaf", { y: 200 }, 0)
-      .to(".left-leaf", { y: -200 }, 0);
+      .to(".right-leaf", { y: 400 }, 0)
+      .to(".left-leaf", { y: -400 }, 0);
+
+    const videoTimeLine = gsap.timeline({
+      scrollTrigger: {
+        trigger: "video",
+        start: startValue,
+        end: endValue,
+        scrub: true,
+        pin: true,
+      },
+    });
+
+    if (!videoRef.current) return;
+    videoRef.current.onloadedmetadata = () => {
+      videoTimeLine.to(videoRef.current, {
+        currentTime: videoRef.current?.duration, // 动画目标：将 currentTime 从 0 变化到视频总时长
+      });
+    };
   }, []);
 
   return (
@@ -76,9 +97,9 @@ const Hero = () => {
 
       <div className="video absolute inset-0">
         <video
-          src="/videos/input.mp4"
-          muted
-          playsInline
+          src="/videos/output.mp4"
+          muted //静音
+          playsInline //在元素内播放
           preload="auto"
           ref={videoRef}
         ></video>
