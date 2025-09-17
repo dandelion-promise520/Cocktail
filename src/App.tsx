@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import { ReactLenis, type LenisRef } from "lenis/react";
 import { useEffect, useRef } from "react";
+import Cocktails from "./components/Cocktails";
+import About from "./components/About";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -39,7 +41,8 @@ const App = () => {
       <main>
         <Navbar />
         <Hero />
-        <div className="h-dvh noisy" id="hero"></div>
+        <Cocktails />
+        <About />
       </main>
     </>
   );
