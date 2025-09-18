@@ -6,6 +6,7 @@ import { ReactLenis, type LenisRef } from "lenis/react";
 import { useEffect, useRef } from "react";
 import Cocktails from "./components/Cocktails";
 import About from "./components/About";
+import Art from "./components/Art";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -33,6 +34,7 @@ const App = () => {
         root
         options={{
           autoRaf: false,
+          duration: 1.2,
           lerp: 0.05, // 值越低，越丝滑 0-1
           smoothWheel: true, //鼠标平滑移动
         }}
@@ -43,6 +45,7 @@ const App = () => {
         <Hero />
         <Cocktails />
         <About />
+        <Art />
       </main>
     </>
   );

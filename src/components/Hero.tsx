@@ -6,7 +6,6 @@ import { useMediaQuery } from "react-responsive";
 
 const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  console.log(videoRef);
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const startValue = isMobile ? "top 50%" : "center 60%";
   const endValue = isMobile ? "120% top" : "bottom top";
@@ -68,7 +67,7 @@ const Hero = () => {
   return (
     <>
       <section id="hero" className="noisy">
-        <h1 className="title">MOJITO</h1>
+        <h1 className="title select-none">MOJITO</h1>
         <img src="/images/hero-left-leaf.png" className="left-leaf" alt="" />
         <img src="/images/hero-right-leaf.png" className="right-leaf" alt="" />
 
