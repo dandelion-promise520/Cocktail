@@ -1,0 +1,95 @@
+import { useGSAP } from "@gsap/react";
+import { openingHours, socials } from "../../constants";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
+
+const Contact = () => {
+  useGSAP(() => {
+    const titleSplit = SplitText.create("#contact h2", { type: "words" });
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: "#contact",
+          start: "top center",
+        },
+      })
+      .from(titleSplit.words, {
+        opacity: 0,
+        yPercent: 100,
+        ease: "power1.inOut",
+        stagger: 0.02,
+      })
+      .from("#contact h3,#contact p", {
+        opacity: 0,
+        yPercent: 100,
+        ease: "power1.inOut",
+        stagger: 0.02,
+      })
+      .to("#f-right-leaf", {
+        y: "-50",
+        duration: 1,
+        ease: "power1.inOut",
+      })
+      .to(
+        "#f-left-leaf",
+        {
+          y: "50",
+          duration: 1,
+          ease: "power1.inOut",
+        },
+        // 表示动画同时进行
+        "<"
+      );
+  }, []);
+
+  return (
+    <footer id="contact">
+      <img src="/images/footer-right-leaf.png" id="f-right-leaf" />
+      <img src="/images/footer-left-leaf.png" id="f-left-leaf" />
+
+      <div className="content">
+        <h2>Where to Find Us</h2>
+
+        <div>
+          <h3>Visit 0ur Bar</h3>
+          <p>456, Raq Blvd.#404,Los Angeles, CA 90210</p>
+        </div>
+
+        <div>
+          <h3>Contact Us</h3>
+          <p>(555) 987-6543</p>
+          <p>hello@jsmcocktail.com</p>
+        </div>
+
+        <div>
+          <h3>0pen Every Day</h3>
+          {openingHours.map((item) => (
+            <p key={item.day}>
+              {item.day} : {item.time}
+            </p>
+          ))}
+        </div>
+
+        <div>
+          <h3>Socials</h3>
+
+          <div className="flex-center gap-5">
+            {socials.map((item) => (
+              <a
+                href={item.url}
+                key={item.name}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={item.icon} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Contact;
